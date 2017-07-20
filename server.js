@@ -1,12 +1,12 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var mongoose = require('mongoose');
-var bluebird = require('bluebird');
+const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+const bluebird = require('bluebird');
 
-var app = express();
+const app = express();
 
-var startServer = function() {
+const startServer = function() {
 
   // Add dotenv here
 
@@ -31,6 +31,8 @@ var startServer = function() {
   });
 
   // Add routers here
+  const apiRouter = require('./controller/api');
+  app.use('/api', apiRouter);
 
   // Boot server
   app.listen(process.env.PORT || 9000);
