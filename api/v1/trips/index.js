@@ -1,5 +1,5 @@
 const express = require('express');
-// const { tripsCtrl } = require('./tripsController');
+const { tripsCtrl } = require('./tripsController');
 
 const trips = express.Router();
 
@@ -7,7 +7,7 @@ trips.use((req, res, next) => {
   next();
 });
 
-trips.get('/', function() { res.json({ message: "hi" })});
+trips.get('/create', tripsCtrl.createTrip);
 // trips.get('/', tripsCtrl.gettrips);
 // trips.get('/:id', tripsCtrl.getBrand);
 // trips.post('/', tripsCtrl.postBrand);

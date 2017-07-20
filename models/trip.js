@@ -16,3 +16,5 @@ const tripSchema = new Schema({
   },
   wineries: [{ type: Schema.Types.ObjectId, ref: 'Winery' }]
 })
+
+module.exports = mongoose.model('Trip', tripSchema);
