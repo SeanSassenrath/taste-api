@@ -5,7 +5,7 @@ const tripSchema = new Schema({
   logistics: {
     date: { type: String, required: true },
     numberOfWineries: { type: Number, required: true },
-    userWineries: { type: Array },
+    userWineries: [{ type: Schema.Types.ObjectId, ref: 'Winery', required: true }],
     radius: {
       startPoint: { 
         lat: { type: Number },
@@ -14,5 +14,5 @@ const tripSchema = new Schema({
       miles: { type: Number }
     },
   },
-  wineries: { type: Array, required: true }
+  wineries: [{ type: Schema.Types.ObjectId, ref: 'Winery', required: true }]
 })
