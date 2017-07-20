@@ -3,19 +3,30 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const bluebird = require('bluebird');
+const dotenv = require('dotenv');
 
 const app = express();
 
 const startServer = function() {
 
-  // Add dotenv here
+  // Load env variables
+  dotenv.load();
 
   // Request body parsing
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
 
   // Mongoose ORM setup
+  const options = {
+    server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+    replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+  };
+
   mongoose.Promise = bluebird;
+  mongoose.connect(process.env.MONGO_LOCAL, options);
+  const db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error:'));
+
 
   // Logging
   if (process.env.NODE_ENV !== 'test') {
@@ -31,7 +42,7 @@ const startServer = function() {
   });
 
   // Add routers here
-  const apiRouter = require('./controller/api');
+  const apiRouter = require('./api');
   app.use('/api', apiRouter);
 
   // Boot server

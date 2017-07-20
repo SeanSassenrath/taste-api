@@ -4,6 +4,7 @@
   "description": "API for Taste app.",
   "main": "server.js",
   "scripts": {
+    "env-setup": "node setup.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sean Sassenrath & Alex Estrada",
